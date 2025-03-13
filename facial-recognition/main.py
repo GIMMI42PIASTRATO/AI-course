@@ -2,6 +2,7 @@ import cv2
 import math
 import mediapipe as mp
 import os
+import time
 
 
 def resize(image):
@@ -57,9 +58,12 @@ while True:
     image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
 
     # Analizza il frame per riconoscere un viso
-    detection_result = detector.detect_for_video(
-        image, int(cap.get(cv2.CAP_PROP_POS_MSEC))
-    )
+    # detection_result = detector.detect_for_video(
+    #     image, int(cap.get(cv2.CAP_PROP_POS_MSEC))
+    # )
+
+    timestamp = int(time.time() * 1000)  # Tempo corrente in millisecondi
+    detection_result = detector.detect_for_video(image, timestamp)
 
     # Se riconoscimento andato a buon fine
     # print(len(detection_result.detections))
